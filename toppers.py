@@ -34,38 +34,43 @@ def main():
                ,'total': sum(marks.values())
             }
 
+    # Print all students details
+    for section in sections:
+        print("\n\nStudents of {}:".format(section))
+        student_details(section_students[section], student_data)
+
     all_toppers = {}
     # Top three students per section
-    print("Top three scorers in Each section are as follows:")
+    print("\n\nTop three scorers in Each section are as follows:")
     for section in sections:
         toppers = top_three(section_students[section], student_data)
         print("\n\nToppers of section ", section)
-        for topper in toppers:
-            # Detailed information
-            # pprint(student_data[topper])
-            # print("\n")
+        for score in sorted(toppers.values())[-1::-1]:
+            for topper in toppers:
+                if toppers[topper] == score:
+                    print("Name: {}, Total: {}".format(topper, student_data[topper]['total']))
 
-            # Basic Information
-            print("Name: {}, Total: {}".format(topper, student_data[topper]['total']))
+                    # Detailed information
+                    # pprint(student_data[topper])
+                    # print("\n")
 
-            all_toppers[topper] = student_data[topper]
+                    # Basic Information
+                    # print("Name: {}, Total: {}".format(topper, student_data[topper]['total']))
+
+                    all_toppers[topper] = student_data[topper]
 
     # Top three throughout the class
     print("\n\nTop three scorers throughout the class:")
     toppers = top_three(all_toppers.keys(), all_toppers)
-    for topper in toppers:
-        # Detailed information
-        # pprint(student_data[topper])
-        # print("\n")
+    for score in sorted(toppers.values())[-1::-1]:
+        for topper in toppers:
+            if toppers[topper] == score:
+                # Detailed information
+                # pprint(student_data[topper])
+                # print("\n")
 
-        # Basic information
-        print("Name: {}, Total: {}".format(topper, all_toppers[topper]['total']))
-
-
-    # Print all students details
-    # for section in sections:
-    #     print("\n\nStudents of {}:".format(section))
-    #     student_details(section_students[section], student_data)
+                # Basic information
+                print("Name: {}, Total: {}".format(topper, all_toppers[topper]['total']))
 
     # print("ALl toppers: ", all_toppers.keys())
     # pprint(student_data)
