@@ -6,30 +6,8 @@ from pprint import pprint
 
 # Returns list of top three among students
 def top_three(students, student_data, courses = []):
-    toppers = {}
-    # for student in students:
-        # total = sum(student_data[student]['course_marks'].values())
-        # total = student_data[student]['total']
-        # if len(toppers) < 3:
-        #     toppers[student] = total
-        # else:
-        #     min_marks = min(toppers.values())
-        #     if total > min_marks:
-        #         for topper in toppers:
-        #             if toppers[topper] == min_marks:
-        #                 del toppers[topper]
-        #                 break
-        #         toppers[student] = total
-
-    # marks = []
-    # for student in students:
-    #     marks = marks + list(student_data[student]['course_marks'].values())
-    #
-    # marks.sort()
-    # print('marks: {}'.format(marks))
-    # return marks[-1:-4:-1]
     if courses:
-        marks = []
+        # marks = []
         course_top_marks = {}
         for course in courses:
             course_top_marks[course] = 0
@@ -40,12 +18,7 @@ def top_three(students, student_data, courses = []):
                     course_top_marks[course] = student_data[student]['course_marks'][course]
         # print("course_top_marks", course_top_marks)
         # print("asdas",sorted(list(course_top_marks.values()))[-1:-4:-1])
-        return sorted(list(course_top_marks.values()))[-1:-4:-1]
-
-
-
-
-    # return toppers
+        return sorted(list(course_top_marks.values()))[-1::-1]
 
 
 # Display student data by sections
@@ -101,39 +74,36 @@ def main():
         top_marks = top_three(section_students[section], student_data, courses)
         print("top_marks: {}".format(top_marks))
         print("\n\nToppers of section ", section)
-        # for marks in top_marks:
-        #     for student in section_students[section]:
-        #         status = False
-        #         for course, course_marks in student_data[student]['course_marks'].items():
-        #             if course_marks == marks:
-        #                 print("Name: {}, Course: {}, Marks: {}".format(student, course, course_marks))
-        #                 all_top_marks[str(student) + ':' + str(course)] = marks
-        #                 status = True
-        #                 break
-        #         if status:
-        #             break
+
         top_names = {}
         course_included = []
+        count = 0
         for student in section_students[section]:
             for course, course_marks in student_data[student]['course_marks'].items():
-                if course_marks in top_marks and course not in course_included:
-                    print("Name: {}, Course: {}, Marks: {}".format(student, course, course_marks))
+                if course_marks in top_marks and course not in course_included and count < 3:
+                    # print("Name: {}, Course: {}, Marks: {}".format(student, course, course_marks))
                     top_names[str(student) + ':' + str(course)] = course_marks
                     top_marks.remove(course_marks)
                     course_included.append(course)
+                    count += 1
+        # print("top_names:\n",top_names)
         # print(top_names)
-        # all_top_names.update(top_names)
-        # print("all: ",all_top_names)
-        # for marks in sorted(list(top_names.values()))[-1::-1]:
-        #     for top_name, top_marks in top_names.items():
-        #         if top_marks == marks:
-        #             print("Name: {}, Course: {}, Marks: {}".format(str(top_name).split(':')[0], str(top_name).split(':')[1], top_marks))
+        all_top_names.update(top_names)
+        for marks in sorted(list(top_names.values()))[-1::-1]:
+            for top_name, top_marks in top_names.items():
+                if top_marks == marks:
+                    print("Name: {}, Course: {}, Marks: {}".format(str(top_name).split(':')[0], str(top_name).split(':')[1], top_marks))
         #             del top_names[top_name]
         #             break
 
-
-
-
+    # Determine top three students in each section
+    print("Whole section:\n")
+    for marks in sorted(list(all_top_names.values()))[-1:-4:-1]:
+        for top_name, top_marks in all_top_names.items():
+            if top_marks == marks:
+                print("Name: {}, Course: {}, Marks: {}".format(str(top_name).split(':')[0], str(top_name).split(':')[1], top_marks))
+                del all_top_names[top_name]
+                break
 
 
 
