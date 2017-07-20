@@ -104,40 +104,4 @@ def main():
                 print("Name: {}, Course: {}, Marks: {}".format(str(top_name).split(':')[0], str(top_name).split(':')[1], top_marks))
                 del all_top_names[top_name]
                 break
-
-
-
-
-
-
-
-
-
-
-
-
-
-        # print("all: ",all_top_marks)
-                # if toppers[topper] == score:
-                #     print("Name: {}, Percentage: {}".format(topper, student_data[topper]['total']/len(courses)))
-                    # Detailed information
-                    # pprint(student_data[topper])
-                    # print("\n")
-                    # all_toppers[topper] = student_data[topper]
-                    #     all_top_marks[str(student)+':'+str(course)] = marks
-        # print('All top marks\n{}'.format(all_top_marks))
-
-    # # Determine top three students throughout the class
-    # print("\n\nTop three scorers throughout the class:")
-    # toppers = top_three(all_toppers.keys(), all_toppers)
-    # for score in sorted(toppers.values())[-1::-1]:
-    #     for topper in toppers:
-    #         if toppers[topper] == score:
-    #             print("Name: {}, Percentage: {}".format(topper, all_toppers[topper]['total'] / len(courses)))
-    #             # Detailed information
-    #             # pprint(student_data[topper])
-    #             # print("\n")
-
-    return
-
 main()
